@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA | Cyber Security</title>
+<style>
+:root {
+  --bg: #080d18;
+  --panel: #111b2d;
+  --border: #263b55;
+  --blue: #38bdf8;
+  --text: #edf4ff;
+  --muted: #a6b5cc;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+header {
+  padding: 28px 16px;
+  text-align: center;
+  background: #0d1728;
+  border-bottom: 1px solid var(--border);
+}
+.logo { color: var(--blue); font-size: 36px; font-weight: bold; }
+header p { color: var(--muted); }
+nav {
+  display: flex; justify-content: center; flex-wrap: wrap;
+  gap: 10px; padding: 14px; background: #0b1322;
+}
+button, .navbtn {
+  border: 1px solid var(--border);
+  border-radius: 9px; padding: 11px 16px;
+  background: #17263c; color: white; cursor: pointer;
+}
+button:hover, .navbtn:hover { border-color: var(--blue); }
+main { max-width: 1050px; margin: auto; padding: 22px; }
+.hero { padding: 25px 0; }
+.hero h1 { font-size: clamp(28px, 5vw, 44px); }
+.hero span { color: var(--blue); }
+.muted { color: var(--muted); line-height: 1.8; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+.card {
+  padding: 20px; background: var(--panel);
+  border: 1px solid var(--border); border-radius: 14px;
+  margin-bottom: 16px;
+}
+h2 { color: var(--blue); font-size: 21px; }
+input {
+  width: 100%; padding: 13px; margin: 9px 0;
+  color: white; background: #080f1d;
+  border: 1px solid var(--border); border-radius: 8px;
+}
+.primary { background: #087eb5; border-color: #087eb5; width: 100%; }
+.result {
+  margin-top: 12px; padding: 12px;
+  background: #081321; border-radius: 8px;
+  line-height: 1.8; overflow-wrap: anywhere;
+}
+.tag {
+  display: inline-block; padding: 5px 9px;
+  border-radius: 6px; background: #19364b; color: #7dd3fc;
+  font-size: 13px;
+}
+section[hidden] { display: none; }
+footer {
+  border-top: 1px solid var(--border);
+  color: var(--muted); text-align: center; padding: 25px;
+}
+a { color: var(--blue); }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">NEXORA</div>
+  <p>منصتك للتعلّم والتوعية بالأمن السيبراني</p>
+  <span class="tag">CYBER SECURITY • LEARN • PROTECT</span>
+</header>
+
+<nav>
+  <button onclick="showPage('home')">الرئيسية</button>
+  <button onclick="showPage('password')">قوة كلمة المرور</button>
+  <button onclick="showPage('url')">فحص الرابط</button>
+  <button onclick="showPage('learn')">تعلّم الأمن السيبراني</button>
+</nav>
+
+<main>
+<section id="home">
+  <div class="hero">
+    <span class="tag">مرحبًا بك في NEXORA</span>
+    <h1>تعلّم التقنية،<br><span>وابنِ مستقبلك الرقمي.</span></h1>
+    <p class="muted">
+      أدوات تعليمية بسيطة لفهم أساسيات الأمن السيبراني
+      وحماية حساباتك والتعرّف على الروابط المشبوهة.
+    </p>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h2>🔐 حماية الحسابات</h2>
+      <p class="muted">تعرّف على خصائص كلمات المرور القوية.</p>
+      <button onclick="showPage('password')">جرّب الأداة ←</button>
+    </div>
+    <div class="card">
+      <h2>🌐 فحص صيغة الرابط</h2>
+      <p class="muted">تحقق من شكل الرابط وعنوانه قبل فتحه.</p>
+      <button onclick="showPage('url')">جرّب الأداة ←</button>
+    </div>
+    <div class="card">
+      <h2>🎓 التعلّم</h2>
+      <p class="muted">ابدأ بأساسيات الشبكات والتشفير والأمن.</p>
+      <button onclick="showPage('learn')">ابدأ التعلّم ←</button>
+    </div>
+  </div>
+</section>
+
+<section id="password" hidden>
+  <div class="card">
+    <h2>🔐 محلل قوة كلمة المرور</h2>
+    <p class="muted">استخدم كلمة مرور تجريبية فقط. لا تدخل كلمة مرور حسابك الحقيقي.</p>
+    <input id="pw" type="password" maxlength="128" placeholder="اكتب كلمة مرور تجريبية">
+    <button class="primary" onclick="checkPassword()">تحليل القوة</button>
+    <div id="pwResult" class="result" hidden></div>
+  </div>
+</section>
+
+<section id="url" hidden>
+  <div class="card">
+    <h2>🌐 فحص الرابط</h2>
+    <p class="muted">
+      تفحص هذه الأداة صيغة الرابط وبعض علاماته الظاهرة فقط.
+      لا تستطيع التأكد من سمعة الموقع أو أمانه دون خدمة فحص خارجية.
+    </p>
+    <input id="urlInput" type="text" maxlength="2048" placeholder="https://example.com">
+    <button class="primary" onclick="checkURL()">تحليل الرابط</button>
+    <div id="urlResult" class="result" hidden></div>
+  </div>
+</section>
+
+<section id="learn" hidden>
+  <h2>🎓 أساسيات الأمن السيبراني</h2>
+  <div class="grid">
+    <div class="card">
+      <span class="tag">المستوى 1</span>
+      <h2>الشبكات</h2>
+      <p class="muted">تعلّم معنى IP وDNS وHTTP وHTTPS.</p>
+      <button onclick="lesson('الشبكات','IP هو عنوان لجهاز على شبكة. DNS يحوّل أسماء النطاقات إلى عناوين IP. HTTPS يشفّر الاتصال بين المتصفح والموقع.')">عرض الدرس</button>
+    </div>
+    <div class="card">
+      <span class="tag">المستوى 1</span>
+      <h2>التشفير</h2>
+      <p class="muted">افهم كيف تساعد تقنيات التشفير في حماية البيانات.</p>
+      <button onclick="lesson('التشفير','التشفير يحوّل البيانات إلى صيغة لا تُفهم دون المفتاح المناسب. لا تشارك مفاتيحك السرية مع الآخرين.')">عرض الدرس</button>
+    </div>
+    <div class="card">
+      <span class="tag">المستوى 1</span>
+      <h2>التصيد الإلكتروني</h2>
+      <p class="muted">تعرّف على الرسائل والروابط الاحتيالية.</p>
+      <button onclick="lesson('التصيد الإلكتروني','تحقّق من اسم النطاق، واحذر الاستعجال والتهديدات والجوائز الوهمية. لا تدخل بياناتك عبر رابط غير موثوق.')">عرض الدرس</button>
+    </div>
+  </div>
+  <div id="lessonResult" class="card" hidden></div>
+</section>
+</main>
+
+<footer>
+  NEXORA Security — مشروع تعليمي<br>
+  لا تعتمد على أدوات الفحص المبسطة لاتخاذ قرارات أمنية حساسة.
+</footer>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('main > section').forEach(function(section) {
+    section.hidden = section.id !== id;
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function checkPassword() {
+  const pw = document.getElementById('pw').value;
+  const out = document.getElementById('pwResult');
+  out.hidden = false;
+
+  if (!pw) {
+    out.textContent = 'أدخل كلمة مرور تجريبية أولًا.';
+    return;
+  }
+
+  let score = 0;
+  if (pw.length >= 12) score += 2;
+  else if (pw.length >= 8) score++;
+
+  if (/[a-z]/.test(pw)) score++;
+  if (/[A-Z]/.test(pw)) score++;
+  if (/[0-9]/.test(pw)) score++;
+  if (/[^a-zA-Z0-9]/.test(pw)) score++;
+
+  const common = ['password', '12345678', 'qwerty', 'admin'];
+  let level = score <= 2 ? 'ضعيفة' : score <= 4 ? 'متوسطة' : 'قوية نسبيًا';
+  if (common.includes(pw.toLowerCase())) level = 'ضعيفة جدًا — كلمة شائعة';
+
+  out.textContent = 'النتيجة: ' + level +
+    '. استخدم كلمة طويلة وفريدة لكل حساب، ويفضّل 12 حرفًا أو أكثر.';
+}
+
+function checkURL() {
+  const value = document.getElementById('urlInput').value.trim();
+  const out = document.getElementById('urlResult');
+  out.hidden = false;
+
+  try {
+    const u = new URL(value);
+    if (!['http:', 'https:'].includes(u.protocol)) {
+      out.textContent = 'صيغة الرابط غير مدعومة.';
+      return;
+    }
+
+    let notes = [];
+    if (u.protocol !== 'https:') notes.push('الاتصال لا يستخدم HTTPS.');
+    if (u.username || u.password) notes.push('الرابط يحتوي على بيانات دخول مضمنة.');
+    if (u.hostname.startsWith('xn--') || u.hostname.includes('.xn--')) {
+      notes.push('اسم النطاق يحتوي على ترميز دولي؛ تحقّق من الاسم بعناية.');
+    }
+    if (u.hostname.length > 60) notes.push('اسم المضيف طويل بشكل غير معتاد.');
+
+    out.textContent = 'اسم المضيف: ' + u.hostname + '. ' +
+      (notes.length ? notes.join(' ') : 'لم تظهر العلامات البسيطة التي تبحث عنها الأداة.') +
+      ' هذا ليس فحصًا أمنيًا كاملًا، ولا يعني أن الموقع آمن.';
+  } catch {
+    out.textContent = 'الرابط غير صالح. أدخل عنوانًا كاملًا مثل https://example.com';
+  }
+}
+
+function lesson(title, content) {
+  const out = document.getElementById('lessonResult');
+  out.hidden = false;
+  out.replaceChildren();
+
+  const heading = document.createElement('h2');
+  heading.textContent = title;
+  const paragraph = document.createElement('p');
+  paragraph.className = 'muted';
+  paragraph.textContent = content;
+
+  out.append(heading, paragraph);
+}
+</script>
+</body>
+</html>
